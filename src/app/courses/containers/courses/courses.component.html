@@ -1,0 +1,31 @@
+<mat-card>
+  <mat-toolbar color="secondary">Cursos Disponíveis</mat-toolbar>
+  @if (courses$ | async; as courses) {
+  <div class="example-container mat-elevation-z8">
+    <mat-table [dataSource]="courses">
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Curso</mat-header-cell>
+        <mat-cell *matCellDef="let course">{{ course.name }}</mat-cell>
+      </ng-container>
+
+      <!-- Category Column -->
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef>Categoria</mat-header-cell>
+        <mat-cell *matCellDef="let course">
+          {{ course.category }}
+          <mat-icon aria-hidden="false" aria-label="Categoria do Curso">{{
+            course.category | category
+          }}</mat-icon>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </div>
+  } @else {
+  <div class="loading-spinner">
+    <mat-spinner></mat-spinner>
+  </div>
+  }
+</mat-card>
